@@ -1,0 +1,16 @@
+certifi==2021.10.8
+cycler==0.10.0
+kiwisolver==1.3.2
+matplotlib==3.4.3
+mkl-fft==1.3.1
+mkl-random @ file:///C:/ci/mkl_random_1626186184308/work
+mkl-service==2.4.0
+numpy @ file:///C:/ci/numpy_and_numpy_base_1634088717532/work
+Pillow==8.4.0
+pygame==2.0.2
+pyparsing==3.0.1
+python-dateutil==2.8.2
+scipy==1.7.1
+six @ file:///tmp/build/80754af9/six_1623709665295/work
+tk==0.1.0
+wincertstore==0.2
