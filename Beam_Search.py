@@ -212,7 +212,25 @@ class GeneticAlgorithm:
 
         return individual    
 
-   
+    # def crossover(self, parent1, parent2):
+    #     crossover_point = random.randint(1, min(len(parent1), len(parent2)) - 1)
+    #     child1 = parent1[:crossover_point] + parent2[crossover_point:]
+    #     child2 = parent2[:crossover_point] + parent1[crossover_point:]
+    #     return child1, child2
+
+    # def mutate(self, individual, mutation_rate=0.1):
+    #     if random.random() < mutation_rate:
+    #         mutation_point = random.choice(range(1, len(individual) - 1))
+    #         individual[mutation_point] = self.random_free_node()
+    #     return individual
+
+    # def random_free_node(self):
+    #     while True:
+    #         i = random.randint(0, len(self.grid) - 1)
+    #         j = random.randint(0, len(self.grid[0]) - 1)
+    #         if self.grid[i][j] != 1:
+    #             return (i, j)
+
     
     def CalcMatrix(self):
         list_start = self.find_start_positions()

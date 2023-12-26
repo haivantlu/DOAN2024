@@ -8,6 +8,7 @@ from visualize import VisualizeResult
 # from d_a_star import GeneticAlgorithm 
 # from d_dfs import GeneticAlgorithm 
 # from e_Van import GeneticAlgorithm 
+# from Beam_Search import GeneticAlgorithm 
 from e_Van_2 import GeneticAlgorithm 
 # from dream import GeneticAlgorithm 
 import time
@@ -38,7 +39,7 @@ def multi_goal(file_name):
 
     # Thứ tự đường đi
     thuTuDuyet = solve[1]
-    print(thuTuDuyet)
+
     # lưu đường đi theo thứ tự
     list_path = []
     for i in range(len(thuTuDuyet)):
@@ -47,7 +48,7 @@ def multi_goal(file_name):
         else:
             list_path.append(path_matrix[thuTuDuyet[i]][thuTuDuyet[i+1]])
 
-    print(list_path)
+
 
     total_distance = solve[0]
     visualize = VisualizeResult(my_map, total_distance, list_path)
