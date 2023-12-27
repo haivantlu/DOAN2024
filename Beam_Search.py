@@ -33,37 +33,54 @@ class GeneticAlgorithm:
         selection_size = round(population_size * 0.20)
         # selection_size = 82
         mutation_rate = 0.1
+        best_solution = None
+        best_fitness = float('inf')
+        unchanged_generations = 0
+        max_unchanged_generations = 5
         
         # Tạo quần thể ban đầu
         population = [ind for ind in [self.create_individual(start, goal) for _ in range(population_size)]]
 
-        while generations > 0:
-            # print('population',population)
-            # Chọn lọc
-            selected_individuals = self.selection(population,selection_size)           
+        for _ in range(generations):
+            selected_individuals = self.selection(population, selection_size)      
             new_generation = []
-            while len(new_generation) < population_size:
-                if not selected_individuals:  # kiểm tra xem danh sách có trống không
-                    break  # hoặc xử lý tình huống phù hợp
-                parent1, parent2 = random.choice(selected_individuals), random.choice(selected_individuals)
+            
+            # Ensure all parents are used for crossover
+            for i in range(len(selected_individuals)):
+                parent1 = selected_individuals[i]
+                parent2 = random.choice(selected_individuals)
                 child1, child2 = self.crossover(parent1, parent2)
                 child1 = self.mutate(child1, mutation_rate)
                 child2 = self.mutate(child2, mutation_rate)
-                new_generation.extend([child1, child2])
+                new_generation.append(child1)
+                new_generation.append(child2)
+            
+            # If the new generation is larger than the population size, trim it
+            if len(new_generation) > population_size:
+                new_generation = new_generation[:population_size]
+            
 
-            if new_generation:  # kiểm tra xem danh sách có trống không
-                greatest_of_all_time = min(new_generation, key=len)
+            # population = new_generation
+            # thay thế các phần tử không tốt ở cuối bằng new_generation
+            population = population[:len(population)-len(new_generation)] + new_generation
+
+            # Find the best solution in this generation
+            current_best_solution = min(population, key=self.fitness)
+            current_best_fitness = self.fitness(current_best_solution)
+
+            # Check if the best solution has changed
+            if current_best_fitness < best_fitness:
+                best_solution = current_best_solution
+                best_fitness = current_best_fitness
+                unchanged_generations = 0
             else:
-                greatest_of_all_time = []
+                unchanged_generations += 1
 
-            population = new_generation
-            generations -= 1
+            # If the best solution has not changed for 5 generations, break the loop
+            if unchanged_generations >= max_unchanged_generations:
+                break
 
-        return greatest_of_all_time
-        print('new_generation',new_generation)
-        # Thay thế quần thể cũ bằng thế hệ này  
-       
-        return None  # Trả về None nếu không tìm thấy lời giải
+        return best_solution
 
 
     def neighbors(self, current):
@@ -101,7 +118,7 @@ class GeneticAlgorithm:
         của các nút tiềm năng nhất thay vì chỉ giữ một nút duy nhất. Điều này cho phép nó khám phá nhiều đường đi cùng một lúc.
     '''
 
-    def create_individual(self, start, goal, beam_width=10):
+    def create_individual(self, start, goal, beam_width=5):
         frontier = PriorityQueue()
         frontier.put((0, start))
         came_from = {start: None}

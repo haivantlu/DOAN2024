@@ -32,18 +32,18 @@ def multi_goal(file_name):
     # ga = GA(distance_matrix)
     # solve = ga.run()
     
-    # ga = GA(distance_matrix, pop_size=200, elite_size=40, mutation_rate=0.01, generations=50)
-    # best_distance, best_route = ga.run()
-    # print("Best Route: ", best_route)
+    ga = GA(distance_matrix, pop_size=200, elite_size=40, mutation_rate=0.01, generations=50)
+    best_distance, best_route = ga.run()
+    print("Best Route: ", best_route)
 
     # BB
-    tsp = TravellingSalesman(distance_matrix)
-    solve = tsp.calculate_min_path()
+    # tsp = TravellingSalesman(distance_matrix)
+    # solve = tsp.calculate_min_path()
 
 
     # Thứ tự đường đi
-    thuTuDuyet = solve[1]
-    # thuTuDuyet = best_route
+    # thuTuDuyet = solve[1]
+    thuTuDuyet = best_route
 
     # lưu đường đi theo thứ tự
     list_path = []
@@ -55,8 +55,8 @@ def multi_goal(file_name):
 
 
 
-    total_distance = solve[0]
-    # total_distance = best_distance
+    # total_distance = solve[0]
+    total_distance = best_distance
     visualize = VisualizeResult(my_map, total_distance, list_path)
 
     # chuyển đường đi sang tọa độ
