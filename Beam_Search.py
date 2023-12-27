@@ -28,10 +28,10 @@ class GeneticAlgorithm:
         return list_start
 
     def genetic_algorithm(self, start, goal):
-        population_size = 100
-        generations =100
-        # selection_size = round(population_size * 0.82)
-        selection_size = 82
+        population_size = 50
+        generations =30
+        selection_size = round(population_size * 0.20)
+        # selection_size = 82
         mutation_rate = 0.1
         
         # Tạo quần thể ban đầu
@@ -100,8 +100,6 @@ class GeneticAlgorithm:
         Beam Search giống như A* nhưng nó giữ một số lượng cố định (kích thước "beam") 
         của các nút tiềm năng nhất thay vì chỉ giữ một nút duy nhất. Điều này cho phép nó khám phá nhiều đường đi cùng một lúc.
     '''
-
-
 
     def create_individual(self, start, goal, beam_width=10):
         frontier = PriorityQueue()

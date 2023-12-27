@@ -93,7 +93,7 @@ class GeneticAlgorithm:
         x2, y2 = next
         return ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5  # Euclidean distance
 
-
+    
     '''
         Để tạo ra nhiều đường đi khác nhau cho quần thể, 
         bạn có thể sử dụng một biến thể của thuật toán A* gọi là Beam Search. 
@@ -103,7 +103,42 @@ class GeneticAlgorithm:
 
 
 
-    def create_individual(self, start, goal, beam_width=10):
+    # def create_individual(self, start, goal, beam_width=10):
+    #     frontier = PriorityQueue()
+    #     frontier.put((0, start))
+    #     came_from = {start: None}
+    #     cost_so_far = {start: 0}
+
+    #     while not frontier.empty():
+    #         _, current = frontier.get()
+
+    #         if current == goal:
+    #             break
+
+    #         neighbors = sorted(self.neighbors(current), key=lambda x: self.heuristic(goal, x))
+    #         neighbors = random.sample(neighbors, min(beam_width, len(neighbors)))  # Select a random subset of neighbors
+    #         for next in neighbors:
+    #             new_cost = cost_so_far[current] + self.cost(current, next)
+    #             if next not in cost_so_far or new_cost < cost_so_far[next]:
+    #                 cost_so_far[next] = new_cost
+    #                 priority = new_cost + self.heuristic(goal, next)
+    #                 frontier.put((priority, next))
+    #                 came_from[next] = current
+
+    #     if goal not in came_from:
+    #         return []
+
+    #     # Reconstruct the path
+    #     current = goal
+    #     path = []
+    #     while current is not None:
+    #         path.append(current)
+    #         current = came_from[current]
+    #     path.reverse()
+
+    #     return path
+    
+    def create_individual(self, start, end, beam_width=10):
         frontier = PriorityQueue()
         frontier.put((0, start))
         came_from = {start: None}
@@ -112,24 +147,24 @@ class GeneticAlgorithm:
         while not frontier.empty():
             _, current = frontier.get()
 
-            if current == goal:
+            if current == end:
                 break
 
-            neighbors = sorted(self.neighbors(current), key=lambda x: self.heuristic(goal, x))
+            neighbors = sorted(self.neighbors(current), key=lambda x: self.heuristic(end, x))
             neighbors = random.sample(neighbors, min(beam_width, len(neighbors)))  # Select a random subset of neighbors
             for next in neighbors:
                 new_cost = cost_so_far[current] + self.cost(current, next)
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
-                    priority = new_cost + self.heuristic(goal, next)
+                    priority = new_cost + self.heuristic(end, next)
                     frontier.put((priority, next))
                     came_from[next] = current
 
-        if goal not in came_from:
+        if end not in came_from:
             return []
 
         # Reconstruct the path
-        current = goal
+        current = end
         path = []
         while current is not None:
             path.append(current)

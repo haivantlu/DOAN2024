@@ -8,8 +8,8 @@ from visualize import VisualizeResult
 # from d_a_star import GeneticAlgorithm 
 # from d_dfs import GeneticAlgorithm 
 # from e_Van import GeneticAlgorithm 
-# from Beam_Search import GeneticAlgorithm 
-from e_Van_2 import GeneticAlgorithm 
+from Beam_Search import GeneticAlgorithm 
+# from e_Van_2 import GeneticAlgorithm 
 # from dream import GeneticAlgorithm 
 import time
 from a import View 
@@ -29,16 +29,21 @@ def multi_goal(file_name):
     
 
     # GA
-    ga = GA(distance_matrix)
-    solve = ga.run()
+    # ga = GA(distance_matrix)
+    # solve = ga.run()
+    
+    # ga = GA(distance_matrix, pop_size=200, elite_size=40, mutation_rate=0.01, generations=50)
+    # best_distance, best_route = ga.run()
+    # print("Best Route: ", best_route)
 
     # BB
-    # tsp = TravellingSalesman(distance_matrix)
-    # solve = tsp.calculate_min_path()
+    tsp = TravellingSalesman(distance_matrix)
+    solve = tsp.calculate_min_path()
 
 
     # Thứ tự đường đi
     thuTuDuyet = solve[1]
+    # thuTuDuyet = best_route
 
     # lưu đường đi theo thứ tự
     list_path = []
@@ -51,6 +56,7 @@ def multi_goal(file_name):
 
 
     total_distance = solve[0]
+    # total_distance = best_distance
     visualize = VisualizeResult(my_map, total_distance, list_path)
 
     # chuyển đường đi sang tọa độ
@@ -91,7 +97,7 @@ class MyFirstGUI:
 
 
 # file_name = "data/GA và BB/map_20_5s_3.txt"
-file_name = "data/TestCase3/map_15_4s_w.txt"
+file_name = "data/TestCase2/map_20_19s.txt"
 
 root = Tk()
 root.geometry("310x240")

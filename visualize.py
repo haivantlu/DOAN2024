@@ -18,7 +18,7 @@ class VisualizeResult:
     def get_solution(self):
         # Flatten the path_matrix into a 1D list
         solution = [point for path in self.path_matrix for point in path]
-        print (solution)
+        # print (solution)
         return solution
 
     def get_total_distance(self):
