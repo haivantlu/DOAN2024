@@ -28,13 +28,8 @@ class GeneticAlgorithm:
         return list_start
 
     def genetic_algorithm(self, start, goal):
-<<<<<<< HEAD
-        population_size = 200
+        population_size = 100
         generations =100
-=======
-        population_size = 50
-        generations =50
->>>>>>> 81684d9cdcdbf8769bf4672105d3b84a82038e7d
         selection_size = round(population_size * 0.20)
         # selection_size = 82
         mutation_rate = 0.1
