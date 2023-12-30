@@ -97,7 +97,7 @@ class MyFirstGUI:
 
 
 # file_name = "data/GA và BB/map_20_5s_3.txt"
-file_name = "data/TestCase2/map_20_19s.txt"
+file_name = "data/TestCase2/map_20_23s.txt"
 
 root = Tk()
 root.geometry("310x240")

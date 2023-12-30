@@ -29,7 +29,7 @@ class GeneticAlgorithm:
 
     def genetic_algorithm(self, start, goal):
         population_size = 50
-        generations =30
+        generations =50
         selection_size = round(population_size * 0.20)
         # selection_size = 82
         mutation_rate = 0.1
