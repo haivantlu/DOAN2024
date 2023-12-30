@@ -28,15 +28,15 @@ class GeneticAlgorithm:
         return list_start
 
     def genetic_algorithm(self, start, goal):
-        population_size = 50
-        generations =30
+        population_size = 200
+        generations =100
         selection_size = round(population_size * 0.20)
         # selection_size = 82
         mutation_rate = 0.1
         best_solution = None
         best_fitness = float('inf')
         unchanged_generations = 0
-        max_unchanged_generations = 5
+        max_unchanged_generations = 10
         
         # Tạo quần thể ban đầu
         population = [ind for ind in [self.create_individual(start, goal) for _ in range(population_size)]]

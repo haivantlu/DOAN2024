@@ -32,7 +32,7 @@ def multi_goal(file_name):
     # ga = GA(distance_matrix)
     # solve = ga.run()
     
-    ga = GA(distance_matrix, pop_size=200, elite_size=40, mutation_rate=0.01, generations=50)
+    ga = GA(distance_matrix, pop_size=50, elite_size=30, mutation_rate=0.01, generations=50)
     best_distance, best_route = ga.run()
     print("Best Route: ", best_route)
 
@@ -97,7 +97,8 @@ class MyFirstGUI:
 
 
 # file_name = "data/GA và BB/map_20_5s_3.txt"
-file_name = "data/TestCase2/map_20_19s.txt"
+file_name = "data/TestCase1/map_20_5s_10.txt"
+# file_name = "data/TestCase2/map_20_7s.txt"
 
 root = Tk()
 root.geometry("310x240")
