@@ -3,7 +3,7 @@ import random
 import pandas as pd
 
 class GA:
-    def __init__(self, distance_matrix, pop_size = 100, elite_size = 20, mutation_rate =0.01, generations= 100):
+    def __init__(self, distance_matrix, pop_size = 100, elite_size = 20, mutation_rate =0.01, generations= 500):
         self.distance_matrix = distance_matrix
         self.pop_size = pop_size
         self.elite_size = elite_size
@@ -90,12 +90,29 @@ class GA:
             mutated_pop.append(mutated_ind)
         return mutated_pop
 
+    def two_opt(self, route):
+        best = route
+        improved = True
+        while improved:
+            improved = False
+            for i in range(1, len(route) - 2):
+                for j in range(i + 1, len(route)):
+                    if j - i == 1: continue  # changes nothing, skip then
+                    new_route = route[:]
+                    new_route[i:j] = route[j - 1:i - 1:-1]  # this is the 2-optSwap
+                    if self.compute_fitness(new_route) > self.compute_fitness(best):
+                        best = new_route
+                        improved = True
+            route = best
+        return best
+
     def next_generation(self, current_gen):
         pop_ranked = self.rank_routes(current_gen)
         selection_results = self.selection(pop_ranked, current_gen)
         matingpool = selection_results
         children = self.breed_population(matingpool)
         next_gen = self.mutate_population(children)
+        next_gen = [self.two_opt(ind) for ind in next_gen]  # apply 2-opt local search
         return next_gen
 
     def run(self):

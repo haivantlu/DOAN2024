@@ -224,3 +224,4 @@ class GeneticAlgorithm:
 
         return distance_matrix, path_matrix, list_start
 
+

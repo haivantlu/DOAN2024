@@ -6,7 +6,7 @@ class Node():
         self.path = path
         self.bound = bound
 
-class TravellingSalesman:
+class TravelingSalesman:
     def __init__(self, graph):
         self.graph = graph
         self.n = len(graph)
@@ -80,5 +80,5 @@ class TravellingSalesman:
 # Driver Code
 if __name__ == "__main__":
     graph = [[0, 10, 15, 20], [10, 0, 35, 25], [15, 35, 0, 30], [20, 25, 30, 0]]
-    tsp = TravellingSalesman(graph)
+    tsp = TravelingSalesman(graph)
     print(tsp.calculate_min_path())

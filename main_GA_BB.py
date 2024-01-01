@@ -1,50 +1,26 @@
 from tkinter import Tk, Label, Button
-from gui_map import GridMap
-from pso_algorithm import *
 from functools import partial
-from GA import GA
-from visualize import VisualizeResult
-# from d import GeneticAlgorithm 
-# from d_a_star import GeneticAlgorithm 
-# from d_dfs import GeneticAlgorithm 
-# from e_Van import GeneticAlgorithm 
-from Beam_Search import GeneticAlgorithm 
-# from e_Van_2 import GeneticAlgorithm 
-# from dream import GeneticAlgorithm 
+from visualize import VisualizeResult 
+from GA_distance import GeneticAlgorithm 
 import time
-from a import View 
-from BAB import TravellingSalesman
+from utils import *
+from BB import TravelingSalesman
 
 
 def multi_goal(file_name):
     time_start = time.time()
- 
-  
     my_map = read_file(file_name)
-    # print('hi',l_dst)
     ga_instance = GeneticAlgorithm(my_map)
 
     # ma trận đường đi
     distance_matrix, path_matrix, list_start = ga_instance.CalcMatrix()
     
-
-    # GA
-    # ga = GA(distance_matrix)
-    # solve = ga.run()
-    
-    # ga = GA(distance_matrix, pop_size=50, elite_size=30, mutation_rate=0.1, generations=50)
-    ga = GA(distance_matrix)
-    best_distance, best_route = ga.run()
-    print("Best Route: ", best_route)
-
     # BB
-    # tsp = TravellingSalesman(distance_matrix)
-    # solve = tsp.calculate_min_path()
-
+    tsp = TravelingSalesman(distance_matrix)
+    solve = tsp.calculate_min_path()
 
     # Thứ tự đường đi
-    # thuTuDuyet = solve[1]
-    thuTuDuyet = best_route
+    thuTuDuyet = solve[1]
 
     # lưu đường đi theo thứ tự
     list_path = []
@@ -55,9 +31,7 @@ def multi_goal(file_name):
             list_path.append(path_matrix[thuTuDuyet[i]][thuTuDuyet[i+1]])
 
 
-
-    # total_distance = solve[0]
-    total_distance = best_distance
+    total_distance = solve[0]
     visualize = VisualizeResult(my_map, total_distance, list_path)
 
     # chuyển đường đi sang tọa độ
@@ -66,8 +40,6 @@ def multi_goal(file_name):
     for i in range(len(thuTuDuyet)):
             list_path.append(list_start[thuTuDuyet[i]])
 
-        
-
     time_end = time.time()
     print("Quãng đường: ",total_distance)
     print("Đường đi", list_path)
@@ -75,13 +47,12 @@ def multi_goal(file_name):
 
     visualize.showSolution()# biểu đồ 2
 
-
 class MyFirstGUI:
     def __init__(self, master, file_name):
         self.master = master
         master.title("GUI")
 
-        self.label = Label(master, text="BeamGA")
+        self.label = Label(master, text="GA-BB")
         self.label.pack(pady = 10)
         self.label.config(font=("Times New Roman", 15))
         #click vào button
@@ -96,15 +67,9 @@ class MyFirstGUI:
         self.close_button.pack(pady = 10)
         self.close_button.config(font=("Times New Roman", 15))
 
-
-# file_name = "data/GA và BB/map_20_5s_3.txt"
 file_name = "data/TestCase5/map_15_19s.txt"
-# file_name = "data/TestCase2/map_20_7s.txt"
 
 root = Tk()
 root.geometry("310x240")
-
-
 my_gui = MyFirstGUI(root, file_name)
-
 root.mainloop()
