@@ -3,7 +3,7 @@ import random
 import pandas as pd
 
 class GA:
-    def __init__(self, distance_matrix, pop_size, elite_size, mutation_rate, generations):
+    def __init__(self, distance_matrix, pop_size = 100, elite_size = 20, mutation_rate =0.01, generations= 100):
         self.distance_matrix = distance_matrix
         self.pop_size = pop_size
         self.elite_size = elite_size
@@ -102,8 +102,16 @@ class GA:
         pop = self.initial_population()
         print("Initial distance: " + str(1 / self.rank_routes(pop)[0][1]))
         
+        last_five_generations_fitness = [0, 0, 0, 0, 0]
+        
         for i in range(self.generations):
             pop = self.next_generation(pop)
+            current_fitness = self.rank_routes(pop)[0][1]
+            last_five_generations_fitness[i % 5] = current_fitness
+            
+            if i >= 4 and len(set(last_five_generations_fitness)) == 1:
+                print("Fitness didn't change for 5 generations. Stopping...")
+                break
         
         print("Final distance: " + str(1 / self.rank_routes(pop)[0][1]))
         best_route_index = self.rank_routes(pop)[0][0]

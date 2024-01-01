@@ -30,7 +30,7 @@ class GeneticAlgorithm:
         population_size = 100
         generations =100
         # selection_size = round(population_size * 0.82)
-        selection_size = 82
+        selection_size = 40
         mutation_rate = 0.1
         
         # Tạo quần thể ban đầu
@@ -154,10 +154,17 @@ class GeneticAlgorithm:
 
         return individual
 
+    
     def fitness(self, individual):
         if len(individual) == 0:
-            return 9999
-        return len(individual)
+            return float('inf')
+        distance = 0
+        for i in range(len(individual) - 1):
+            point1 = individual[i]
+            point2 = individual[i + 1]
+            distance += math.sqrt((point2[0] - point1[0])**2 + (point2[1] - point1[1])**2)
+
+        return distance
 
     def selection(self, population, selection_size):
         # lấy ra selection_size các phẩn tử có độ dài lớn hơn 0
