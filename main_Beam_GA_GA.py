@@ -71,7 +71,7 @@ class MyFirstGUI:
         self.close_button.pack(pady = 10)
         self.close_button.config(font=("Times New Roman", 15))
 
-file_name = "data/TestCase5/map_15_19s.txt"
+file_name = "data/TestCase5/map_15_21s.txt"
 
 root = Tk()
 root.geometry("310x240")
